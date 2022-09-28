@@ -48,127 +48,127 @@ import url from './icons/url.svg';
  * associated to an {@link module:boxes/ActiveBox.ActiveBox ActiveBox} object.
  */
 export class MediaContent {
-  /**
-   * MediaContent constructor
-   * @param {string} type - The type of media. Valid values are: `UNKNOWN`, `PLAY_AUDIO`, `PLAY_VIDEO`,
-   * `PLAY_MIDI`, `PLAY_CDAUDIO`, `RECORD_AUDIO`, `PLAY_RECORDED_AUDIO`, `RUN_CLIC_ACTIVITY`,
-   * `RUN_CLIC_PACKAGE`, `RUN_EXTERNAL`, `URL`, `EXIT` and `RETURN`
-   * @param {string} [file] - Optional parameter indicating the media file name
-   */
-  constructor(type, file) {
-    this.type = type;
-    if (file)
-      this.file = file;
-  }
+    /**
+     * MediaContent constructor
+     * @param {string} type - The type of media. Valid values are: `UNKNOWN`, `PLAY_AUDIO`, `PLAY_VIDEO`,
+     * `PLAY_MIDI`, `PLAY_CDAUDIO`, `RECORD_AUDIO`, `PLAY_RECORDED_AUDIO`, `RUN_CLIC_ACTIVITY`,
+     * `RUN_CLIC_PACKAGE`, `RUN_EXTERNAL`, `URL`, `EXIT` and `RETURN`
+     * @param {string} [file] - Optional parameter indicating the media file name
+     */
+    constructor(type, file) {
+        this.type = type;
+        if (file)
+            this.file = file;
+    }
 
-  /**
-   * Loads the MediaContent settings from a specific JQuery XML element
-   * @param {external:jQuery} $xml
-   */
-  setProperties($xml) {
-    attrForEach($xml.get(0).attributes, (name, val) => {
-      switch (name) {
-        case 'type':
-          this.type = val;
-          break;
-        case 'file':
-          this.file = nSlash(val);
-          break;
-        case 'params':
-          this.externalParam = nSlash(val);
-          break;
+    /**
+     * Loads the MediaContent settings from a specific JQuery XML element
+     * @param {external:jQuery} $xml
+     */
+    setProperties($xml) {
+        attrForEach($xml.get(0).attributes, (name, val) => {
+            switch (name) {
+                case 'type':
+                    this.type = val;
+                    break;
+                case 'file':
+                    this.file = nSlash(val);
+                    break;
+                case 'params':
+                    this.externalParam = nSlash(val);
+                    break;
 
-        case 'pFrom':
-          this.absLocationFrom = val;
-          break;
+                case 'pFrom':
+                    this.absLocationFrom = val;
+                    break;
 
-        case 'buffer':
-          this.recBuffer = Number(val);
-          break;
-        case 'level':
-        case 'from':
-        case 'to':
-        case 'length':
-          this[name] = Number(val);
-          break;
+                case 'buffer':
+                    this.recBuffer = Number(val);
+                    break;
+                case 'level':
+                case 'from':
+                case 'to':
+                case 'length':
+                    this[name] = Number(val);
+                    break;
 
-        case 'px':
-        case 'py':
-          if (this.absLocation === null)
-            this.absLocation = new Point(0, 0);
-          if (name === 'px')
-            this.absLocation.x = Number(val);
-          else
-            this.absLocation.y = Number(val);
-          break;
+                case 'px':
+                case 'py':
+                    if (this.absLocation === null)
+                        this.absLocation = new Point(0, 0);
+                    if (name === 'px')
+                        this.absLocation.x = Number(val);
+                    else
+                        this.absLocation.y = Number(val);
+                    break;
 
-        case 'stretch':
-        case 'free':
-        case 'catchMouseEvents':
-        case 'loop':
-        case 'autostart':
-          this[name] = getBoolean(val);
-          break;
-      }
-    });
-    return this;
-  }
+                case 'stretch':
+                case 'free':
+                case 'catchMouseEvents':
+                case 'loop':
+                case 'autoStart':
+                    this[name] = getBoolean(val);
+                    break;
+            }
+        });
+        return this;
+    }
 
-  /**
-   * Gets a object with the basic attributes needed to rebuild this instance excluding functions,
-   * parent references, constants and also attributes retaining the default value.
-   * The resulting object is commonly usued to serialize elements in JSON format.
-   * @returns {object} - The resulting object, with minimal attrributes
-   */
-  getAttributes() {
-    return getAttr(this, [
-      'type', 'file', 'externalParam',
-      'absLocation', // -> AWT.Point
-      'absLocationFrom', 'recBuffer',
-      'level|1', 'from', 'to', 'length',
-      'stretch', 'free', 'catchMouseEvents', 'loop', 'autostart'
-    ]);
-  }
+    /**
+     * Gets a object with the basic attributes needed to rebuild this instance excluding functions,
+     * parent references, constants and also attributes retaining the default value.
+     * The resulting object is commonly usued to serialize elements in JSON format.
+     * @returns {object} - The resulting object, with minimal attrributes
+     */
+    getAttributes() {
+        return getAttr(this, [
+            'type', 'file', 'externalParam',
+            'absLocation', // -> AWT.Point
+            'absLocationFrom', 'recBuffer',
+            'level|1', 'from', 'to', 'length',
+            'stretch', 'free', 'catchMouseEvents', 'loop', 'autoStart'
+        ]);
+    }
 
-  /**
-   * Reads the properties of this MediaContent from a data object
-   * @param {object} data - The data object to be parsed
-   * @returns {module:media/MediaContent.MediaContent}
-   */
-  setAttributes(data) {
-    return setAttr(this, data, [
-      'type', 'file', 'externalParam',
-      { key: 'absLocation', fn: Point },
-      'absLocationFrom', 'recBuffer',
-      'level', 'from', 'to', 'length',
-      'stretch', 'free', 'catchMouseEvents', 'loop', 'autostart',
-    ]);
-  }
+    /**
+     * Reads the properties of this MediaContent from a data object
+     * @param {object} data - The data object to be parsed
+     * @returns {module:media/MediaContent.MediaContent}
+     */
+    setAttributes(data) {
+        return setAttr(this, data, [
+            'type', 'file', 'externalParam',
+            { key: 'absLocation', fn: Point },
+            'absLocationFrom', 'recBuffer',
+            'level', 'from', 'to', 'length',
+            'stretch', 'free', 'catchMouseEvents', 'loop', 'autoStart',
+        ]);
+    }
 
-  /**
-   * Compares this object with another MediaContent.
-   * @param {module:media/MediaContent.MediaContent} mc - The Media Content to compare against to.
-   * @returns {boolean} - `true` when both objects are equivalent.
-   */
-  isEquivalent(mc) {
-    return this.type === mc.type &&
-      (this.file === mc.file ||
-        this.file !== null && mc.file !== null &&
-        this.file.toLocaleLowerCase() === mc.file.toLocaleLowerCase()) &&
-      this.from === mc.from &&
-      this.to === mc.to &&
-      this.recBuffer === mc.recBuffer;
-  }
+    /**
+     * Compares this object with another MediaContent.
+     * @param {module:media/MediaContent.MediaContent} mc - The Media Content to compare against to.
+     * @returns {boolean} - `true` when both objects are equivalent.
+     */
+    isEquivalent(mc) {
+        return this.type === mc.type &&
+            (this.file === mc.file ||
+                this.file !== null && mc.file !== null &&
+                this.file.toLocaleLowerCase() === mc.file.toLocaleLowerCase()) &&
+            this.from === mc.from &&
+            this.to === mc.to &&
+            this.recBuffer === mc.recBuffer;
+    }
 
-  /**
-   * Gets a string representing this media content, useful for checking if two different elements
-   * are equivalent.
-   * @returns {string}
-   */
-  getDescription() {
-    let result = `${this.type}`;
-    if (this.file)
-      result = `${result} ${this.file}${this.from >= 0 ? ` from:${this.from}` : ''}${this.to >= 0 ? ` to:${this.to}` : ''}`;
+    /**
+     * Gets a string representing this media content, useful for checking if two different elements
+     * are equivalent.
+     * @returns {string}
+     */
+    getDescription() {
+            let result = `${this.type}`;
+            if (this.file)
+                result = `${result} ${this.file}${this.from >= 0 ? ` from:${this.from}` : ''}${this.to >= 0 ? ` to:${this.to}` : ''}`;
     else if (this.externalParam)
       result = `${result} ${this.externalParam}`;
     return result;

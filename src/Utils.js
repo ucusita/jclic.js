@@ -47,11 +47,11 @@ import GlobalData from './GlobalData';
  * @type: {object}
  */
 export const pkg = {
-  clipboard,
-  $,
-  JSZip,
-  JSZipUtils,
-  WebFont,
+    clipboard,
+    $,
+    JSZip,
+    JSZipUtils,
+    WebFont,
 };
 
 /**
@@ -70,12 +70,12 @@ export const LOG_PRINT_LABELS = ['     ', 'ERROR', 'WARN ', 'INFO ', 'DEBUG', 'T
  * Options of the logging system
  * @type {object} */
 export const LOG_OPTIONS = {
-  level: 2, // warn
-  prefix: 'JClic',
-  timestamp: true,
-  popupOnErrors: false,
-  chainTo: null,
-  pipeTo: null,
+    level: 2, // warn
+    prefix: 'JClic',
+    timestamp: true,
+    popupOnErrors: false,
+    chainTo: null,
+    pipeTo: null,
 };
 
 /**
@@ -91,21 +91,21 @@ let _messages = {};
  * @returns {object} The normalized `options` object
  */
 export function init(options, setLog = true, setLang = true) {
-  options = normalizeObject(options);
-  if (setLog) {
-    if (typeof options.logLevel !== 'undefined')
-      setLogLevel(options.logLevel);
-    if (typeof options.chainLogTo === 'function')
-      LOG_OPTIONS.chainTo = options.chainLogTo;
-    if (typeof options.pipeLogTo === 'function')
-      LOG_OPTIONS.pipeTo = options.pipeLogTo;
-  }
+    options = normalizeObject(options);
+    if (setLog) {
+        if (typeof options.logLevel !== 'undefined')
+            setLogLevel(options.logLevel);
+        if (typeof options.chainLogTo === 'function')
+            LOG_OPTIONS.chainTo = options.chainLogTo;
+        if (typeof options.pipeLogTo === 'function')
+            LOG_OPTIONS.pipeTo = options.pipeLogTo;
+    }
 
-  if (setLang) {
-    const lngRequested = options.lang;
-    const lng = checkPreferredLanguage(GlobalData.languages, 'en', lngRequested);
-    log('debug', `Language ${lngRequested ? `requested: "${lngRequested}" ` : ''} used: "${lng}"`);
-    _messages = lng === 'en' ? {} : GlobalData.messages[lng];
+    if (setLang) {
+        const lngRequested = options.lang;
+        const lng = checkPreferredLanguage(GlobalData.languages, 'es', lngRequested);
+        log('debug', `Language ${lngRequested ? `requested: "${lngRequested}" ` : ''} used: "${lng}"`);
+    _messages = lng === 'es' ? {} : GlobalData.messages[lng];
   }
 
   return options;
@@ -143,7 +143,7 @@ export function normalizeLocale(locale = '') {
  * @param {string} [requestedLang=''] - Request this specific language
  * @returns {string} - The most suitable language for this request
  */
-export function checkPreferredLanguage(availableLangs, defaultLang = 'en', requestedLang = '') {
+export function checkPreferredLanguage(availableLangs, defaultLang = 'es', requestedLang = '') {
   let result = -1;
 
   // Create an array to store possible values

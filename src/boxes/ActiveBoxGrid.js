@@ -42,138 +42,154 @@ import { settings, roundTo } from '../Utils';
  * @extends module:boxes/ActiveBoxBag.ActiveBoxBag
  */
 export class ActiveBoxGrid extends ActiveBoxBag {
-  /**
-   * ActiveBxGrid constructor
-   * @param {module:boxes/AbstractBox.AbstractBox} parent - The AbstractBox to which this box grid belongs
-   * @param {module:AWT.Container} container - The container where this box grid is placed.
-   * @param {module:boxes/BoxBase} boxBase - The object where colors, fonts, border and other graphic properties
-   * @param {number} px - `X` coordinate of the upper left corner of this box grid
-   * @param {number} py - `Y` coordinate of the upper left corner of this box grid
-   * @param {number} setWidth - Total width of the box grid
-   * @param {number} setHeight - Total height of the box grid
-   * @param {module:shapers/Shaper.Shaper} sh - Shaper used to build the ActiveBox objects
-   */
-  constructor(parent, container, boxBase, px, py, setWidth, setHeight, sh) {
-    // ActiveBoxGrid derives from ActiveBoxBag
-    super(parent, container, boxBase);
+    /**
+     * ActiveBxGrid constructor
+     * @param {module:boxes/AbstractBox.AbstractBox} parent - The AbstractBox to which this box grid belongs
+     * @param {module:AWT.Container} container - The container where this box grid is placed.
+     * @param {module:boxes/BoxBase} boxBase - The object where colors, fonts, border and other graphic properties
+     * @param {number} px - `X` coordinate of the upper left corner of this box grid
+     * @param {number} py - `Y` coordinate of the upper left corner of this box grid
+     * @param {number} setWidth - Total width of the box grid
+     * @param {number} setHeight - Total height of the box grid
+     * @param {module:shapers/Shaper.Shaper} sh - Shaper used to build the ActiveBox objects
+     */
+    constructor(parent, container, boxBase, px, py, setWidth, setHeight, sh) {
+        // ActiveBoxGrid derives from ActiveBoxBag
+        super(parent, container, boxBase);
 
-    this.nCols = sh.nCols;
-    this.nRows = sh.nRows;
+        this.nCols = sh.nCols;
+        this.nRows = sh.nRows;
 
-    // This will be the enclosing rectangle of this ActiveBox bag
-    const r = new Rectangle(
-      new Point(px, py),
-      new Dimension(
-        Math.round(setWidth / this.nCols) * this.nCols,
-        Math.round(setHeight / this.nRows) * this.nRows));
+        // This will be the enclosing rectangle of this ActiveBox bag
+        const r = new Rectangle(
+            new Point(px, py),
+            new Dimension(
+                Math.round(setWidth / this.nCols) * this.nCols,
+                Math.round(setHeight / this.nRows) * this.nRows));
 
-    // Create all the [ActiveBox](ActiveBox.html) objects based on the
-    // shapes provided by the [Shaper](Shaper.html)
-    for (let i = 0; i < sh.nCells; i++) {
-      const
-        tmpSh = sh.getShape(i, r),
-        bx = new ActiveBox(this, container, boxBase, i, tmpSh.getBounds());
-      if (!sh.rectangularShapes)
-        bx.setShape(tmpSh);
-      this.addActiveBox(bx);
+        // Create all the [ActiveBox](ActiveBox.html) objects based on the
+        // shapes provided by the [Shaper](Shaper.html)
+        for (let i = 0; i < sh.nCells; i++) {
+            const
+                tmpSh = sh.getShape(i, r),
+                bx = new ActiveBox(this, container, boxBase, i, tmpSh.getBounds());
+            if (!sh.rectangularShapes)
+                bx.setShape(tmpSh);
+            this.addActiveBox(bx);
+        }
+
+        // If the Shaper has `remainder` (extra space), set the background box of this
+        // [BoxBag](BoxBag.html)
+        if (sh.hasRemainder) {
+            const
+                tmpSh = sh.getRemainderShape(r),
+                bx = new ActiveBox(this, container, boxBase, 0, tmpSh.getBounds());
+            bx.setShape(tmpSh);
+            this.setBackgroundBox(bx);
+        }
     }
 
-    // If the Shaper has `remainder` (extra space), set the background box of this
-    // [BoxBag](BoxBag.html)
-    if (sh.hasRemainder) {
-      const
-        tmpSh = sh.getRemainderShape(r),
-        bx = new ActiveBox(this, container, boxBase, 0, tmpSh.getBounds());
-      bx.setShape(tmpSh);
-      this.setBackgroundBox(bx);
+    /**
+     * This factory constructor creates a new empty grid with the number of cells indicated by the
+     * {@link module:boxes/ActiveBagContent.ActiveBagContent ActiveBagContent} `abc`, not filling the cells with any content.
+     * @param {module:boxes/AbstractBox.AbstractBox} parent - The AbstractBox to which this box grid belongs
+     * @param {module:AWT.Container} container - The container where this box grid is placed.
+     * @param {number} px - `X` coordinate of the upper left corner of this box grid
+     * @param {number} py - `Y` coordinate of the upper left corner of this box grid
+     * @param {module:boxes/ActiveBagContent.ActiveBagContent} abc - Used only to get the number of cells and the shaper (when `sh` is `null`)
+     * @param {module:shapers/Shaper.Shaper} sh - Shaper used to build the ActiveBox objects
+     * @param {module:boxes/BoxBase.BoxBase} boxBase - The object where colors, fonts, border and other graphic properties
+     * of this box grid are defined.
+     * @returns {module:boxes/ActiveBoxGrid.ActiveBoxGrid}
+     */
+    static createEmptyGrid(parent, container, px, py, abc, sh, boxBase) {
+        const result = abc ? new ActiveBoxGrid(parent, container,
+            boxBase || abc.style,
+            px, py,
+            abc.getTotalWidth(), abc.getTotalHeight(),
+            sh || abc.getShaper()) : null;
+
+        console.log('result=', result);
+        if (result)
+            result.setBorder(abc.border);
+
+        return result;
     }
-  }
 
-  /**
-   * This factory constructor creates a new empty grid with the number of cells indicated by the
-   * {@link module:boxes/ActiveBagContent.ActiveBagContent ActiveBagContent} `abc`, not filling the cells with any content.
-   * @param {module:boxes/AbstractBox.AbstractBox} parent - The AbstractBox to which this box grid belongs
-   * @param {module:AWT.Container} container - The container where this box grid is placed.
-   * @param {number} px - `X` coordinate of the upper left corner of this box grid
-   * @param {number} py - `Y` coordinate of the upper left corner of this box grid
-   * @param {module:boxes/ActiveBagContent.ActiveBagContent} abc - Used only to get the number of cells and the shaper (when `sh` is `null`)
-   * @param {module:shapers/Shaper.Shaper} sh - Shaper used to build the ActiveBox objects
-   * @param {module:boxes/BoxBase.BoxBase} boxBase - The object where colors, fonts, border and other graphic properties
-   * of this box grid are defined.
-   * @returns {module:boxes/ActiveBoxGrid.ActiveBoxGrid}
-   */
-  static createEmptyGrid(parent, container, px, py, abc, sh, boxBase) {
-    const result = abc ? new ActiveBoxGrid(parent, container,
-      boxBase || abc.style,
-      px, py,
-      abc.getTotalWidth(), abc.getTotalHeight(),
-      sh || abc.getShaper()) : null;
 
-    if (result)
-      result.setBorder(abc.border);
+    static createEmptyGrid_AR(parent, container, px, py, abc, sh, boxBase) {
+        const result = abc ? new ActiveBoxGrid(parent, container,
+            boxBase || abc.style,
+            px, py,
+            abc.getTotalWidth(), abc.getTotalHeight(),
+            sh || abc.getShaper()) : null;
 
-    return result;
-  }
+        console.log('result=', result);
+        if (result)
+            result.setBorder(abc.border);
+        result.visible = false;
+        return result;
+    }
 
-  /**
-   * Gets the minimum size of this grid
-   * @returns {module:AWT.Dimension}
-   */
-  getMinimumSize() {
-    return new Dimension(
-      settings.MIN_CELL_SIZE * this.nCols,
-      settings.MIN_CELL_SIZE * this.nRows);
-  }
+    /**
+     * Gets the minimum size of this grid
+     * @returns {module:AWT.Dimension}
+     */
+    getMinimumSize() {
+        return new Dimension(
+            settings.MIN_CELL_SIZE * this.nCols,
+            settings.MIN_CELL_SIZE * this.nRows);
+    }
 
-  /**
-   * Gets a scaled size of this grid, rounded to the nearest integer values
-   * @param {number} scale - The scale factor
-   * @returns {module:AWT.Dimension}
-   */
-  getScaledSize(scale) {
-    return new Dimension(
-      roundTo(scale * this.preferredBounds.dim.width, this.nCols),
-      roundTo(scale * this.preferredBounds.dim.height, this.nRows));
-  }
+    /**
+     * Gets a scaled size of this grid, rounded to the nearest integer values
+     * @param {number} scale - The scale factor
+     * @returns {module:AWT.Dimension}
+     */
+    getScaledSize(scale) {
+        return new Dimension(
+            roundTo(scale * this.preferredBounds.dim.width, this.nCols),
+            roundTo(scale * this.preferredBounds.dim.height, this.nRows));
+    }
 
-  /**
-   * Returns the logical coordinates of the provided {@link module:boxes/ActiveBox.ActiveBox ActiveBox}.
-   * The units of the result are not pixels, but ordinal numbers (relative positions) of columns
-   * and rows in the grid.
-   * @param {module:boxes/ActiveBox.ActiveBox} bx - The box to process
-   * @returns {module:AWT.Point}
-   */
-  getCoord(bx) {
-    return new Point(bx.idLoc % this.nCols, Math.floor(bx.idLoc / this.nCols));
-  }
+    /**
+     * Returns the logical coordinates of the provided {@link module:boxes/ActiveBox.ActiveBox ActiveBox}.
+     * The units of the result are not pixels, but ordinal numbers (relative positions) of columns
+     * and rows in the grid.
+     * @param {module:boxes/ActiveBox.ActiveBox} bx - The box to process
+     * @returns {module:AWT.Point}
+     */
+    getCoord(bx) {
+        return new Point(bx.idLoc % this.nCols, Math.floor(bx.idLoc / this.nCols));
+    }
 
-  /**
-   * Calculates the logical distance between two {@link module:boxes/ActiveBox.ActiveBox ActiveBox} objects.
-   * Resulting units are not pixels, but ordinal numbers (relative positions) of columns and rows
-   * in the grid.
-   * @param {module:boxes/ActiveBox.ActiveBox} src - First box
-   * @param {module:boxes/ActiveBox.ActiveBox} dest - Second box
-   * @returns {module:AWT.Point}
-   */
-  getCoordDist(src, dest) {
-    const
-      ptSrc = this.getCoord(src),
-      ptDest = this.getCoord(dest);
-    return new Point(ptDest.x - ptSrc.x, ptDest.y - ptSrc.y);
-  }
+    /**
+     * Calculates the logical distance between two {@link module:boxes/ActiveBox.ActiveBox ActiveBox} objects.
+     * Resulting units are not pixels, but ordinal numbers (relative positions) of columns and rows
+     * in the grid.
+     * @param {module:boxes/ActiveBox.ActiveBox} src - First box
+     * @param {module:boxes/ActiveBox.ActiveBox} dest - Second box
+     * @returns {module:AWT.Point}
+     */
+    getCoordDist(src, dest) {
+        const
+            ptSrc = this.getCoord(src),
+            ptDest = this.getCoord(dest);
+        return new Point(ptDest.x - ptSrc.x, ptDest.y - ptSrc.y);
+    }
 }
 
 Object.assign(ActiveBoxGrid.prototype, {
-  /**
-   * Number of columns of this box grid
-   * @name module:boxes/ActiveBoxGrid.ActiveBoxGrid#nCols
-   * @type {number} */
-  nCols: 1,
-  /**
-   * Number of rows of this box grid
-   * @name module:boxes/ActiveBoxGrid.ActiveBoxGrid#nRows
-   * @type {number} */
-  nRows: 1,
+    /**
+     * Number of columns of this box grid
+     * @name module:boxes/ActiveBoxGrid.ActiveBoxGrid#nCols
+     * @type {number} */
+    nCols: 1,
+    /**
+     * Number of rows of this box grid
+     * @name module:boxes/ActiveBoxGrid.ActiveBoxGrid#nRows
+     * @type {number} */
+    nRows: 1,
 });
 
 export default ActiveBoxGrid;

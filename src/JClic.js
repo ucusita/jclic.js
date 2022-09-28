@@ -75,16 +75,16 @@ import Deps from './Deps';
  * </caption><div class ="JClic" data-project="myproject.jclic" data-options='{"fade":"400","lang":"es","reporter":"TCPReporter","user":"test01","path":"localhost:9090"}'></div>
  */
 export const JClicObject = {
-  Deps,
-  JClicPlayer,
-  JClicProject,
-  AWT,
-  Utils,
-  $,
-  options: typeof JClicDataOptions === 'undefined' ? {} : JClicDataOptions,
-  projectFiles: {},
-  currentPlayers: [],
-  loadProject,
+    Deps,
+    JClicPlayer,
+    JClicProject,
+    AWT,
+    Utils,
+    $,
+    options: typeof JClicDataOptions === 'undefined' ? {} : JClicDataOptions,
+    projectFiles: {},
+    currentPlayers: [],
+    loadProject,
 };
 
 /**
@@ -97,97 +97,97 @@ export const JClicObject = {
  */
 export function loadProject(div, projectName, options = {}) {
 
-  options = init({ ...JClicObject.options, ...options }, true, false);
-  let player = null;
+    options = init({...JClicObject.options, ...options }, true, false);
+    let player = null;
 
-  // Find if there is another player already running on 'div'
-  for (const pl of JClicObject.currentPlayers) {
-    if (pl && pl.$topDiv && pl.$topDiv.get(-1) === div) {
-      // Player found! Check if it has the same options
-      log('debug', 'Existing JClicPlayer found in div. I will try to reuse it.');
-      player = pl;
-      for (const prop of Object.getOwnPropertyNames(options)) {
-        if (!player.options.hasOwnProperty(prop) || player.options[prop] !== options[prop]) {
-          log('debug', 'Existing JClicPlayer has diferent options! Creating a new one from scratch.');
-          player = null;
-          break;
+    // Find if there is another player already running on 'div'
+    for (const pl of JClicObject.currentPlayers) {
+        if (pl && pl.$topDiv && pl.$topDiv.get(-1) === div) {
+            // Player found! Check if it has the same options
+            log('debug', 'Existing JClicPlayer found in div. I will try to reuse it.');
+            player = pl;
+            for (const prop of Object.getOwnPropertyNames(options)) {
+                if (!player.options.hasOwnProperty(prop) || player.options[prop] !== options[prop]) {
+                    log('debug', 'Existing JClicPlayer has diferent options! Creating a new one from scratch.');
+                    player = null;
+                    break;
+                }
+            }
+            break;
         }
-      }
-      break;
     }
-  }
 
-  if (player)
-    player.reset();
-  else {
-    log('debug', 'Creating a new instance of JClicPlayer');
-    player = new JClicPlayer($(div).empty(), options);
-  }
+    if (player)
+        player.reset();
+    else {
+        log('debug', 'Creating a new instance of JClicPlayer');
+        player = new JClicPlayer($(div).empty(), options);
+    }
+    console.log('++++ this +++++', this);
+    if (projectName)
+        player.initReporter()
+        .then(() => player.load(projectName))
+        .catch(err => {
+            log('error', `Unable to start reporting: ${err.toString()}.\n JClicPlayer will be removed.'`);
+            $(div).empty().removeAttr('style').append($('<h2/>').html(player.getMsg('ERROR'))).append($('<p/>').html(err));
+            const i = JClicObject.currentPlayers.indexOf(player);
+            if (i >= 0)
+                JClicObject.currentPlayers.splice(i, 1);
+            player = null;
+        });
 
-  if (projectName)
-    player.initReporter()
-      .then(() => player.load(projectName))
-      .catch(err => {
-        log('error', `Unable to start reporting: ${err.toString()}.\n JClicPlayer will be removed.'`);
-        $(div).empty().removeAttr('style').append($('<h2/>').html(player.getMsg('ERROR'))).append($('<p/>').html(err));
-        const i = JClicObject.currentPlayers.indexOf(player);
-        if (i >= 0)
-          JClicObject.currentPlayers.splice(i, 1);
-        player = null;
-      });
+    if (player && options.savePlayersRef !== false && JClicObject.currentPlayers.indexOf(player) === -1)
+        JClicObject.currentPlayers.push(player);
 
-  if (player && options.savePlayersRef !== false && JClicObject.currentPlayers.indexOf(player) === -1)
-    JClicObject.currentPlayers.push(player);
-
-  return player;
+    return player;
 }
 
 // Make JClicObject global and attach resize handler
 if (typeof window !== 'undefined') {
-  window.JClicObject = JClicObject;
-  const fnFit = () => JClicObject.currentPlayers.forEach(player => {
-    if (player && player.skin)
-      player.skin.fit();
-  });
-  $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange', fnFit);
-  $(window).on('resize', fnFit);
+    window.JClicObject = JClicObject;
+    const fnFit = () => JClicObject.currentPlayers.forEach(player => {
+        if (player && player.skin)
+            player.skin.fit();
+    });
+    $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange', fnFit);
+    $(window).on('resize', fnFit);
 }
 
 // Execute on document ready
-$(function () {
-  // If defined, load the global variable `JClicDataOptions`
-  let options = typeof JClicDataOptions === 'undefined' ? {} : JClicDataOptions;
-  JClicObject.options = options;
+$(function() {
+    // If defined, load the global variable `JClicDataOptions`
+    let options = typeof JClicDataOptions === 'undefined' ? {} : JClicDataOptions;
+    JClicObject.options = options;
 
-  if (!options.noInit) {
-    // If defined, load the global variable `JClicDataProject` or `JClicObject.projectFile`
-    let projectName =
-      typeof JClicDataProject === 'string' ?
-        JClicDataProject :
-        typeof JClicObject.projectFile === 'string' ?
-          JClicObject.projectFile :
-          null;
+    if (!options.noInit) {
+        // If defined, load the global variable `JClicDataProject` or `JClicObject.projectFile`
+        let projectName =
+            typeof JClicDataProject === 'string' ?
+            JClicDataProject :
+            typeof JClicObject.projectFile === 'string' ?
+            JClicObject.projectFile :
+            null;
 
-    // Enable sync with browser history only when there is a single element of class 'JClic'.
-    // This is done automatically when this element is a direct child of body, or when 'browserHistory' is
-    // explicitly set
-    options.browserHistory = $('body>div.JClic').length === 1 || options.browserHistory && $('.JClic').length === 1;
+        // Enable sync with browser history only when there is a single element of class 'JClic'.
+        // This is done automatically when this element is a direct child of body, or when 'browserHistory' is
+        // explicitly set
+        options.browserHistory = $('body>div.JClic').length === 1 || options.browserHistory && $('.JClic').length === 1;
 
-    // Search DOM elements with class "JClic" (usually of type 'div') and iterate over them
-    // initializing players
-    $('.JClic').each((_n, element) => {
-      const $div = $(element);
-      const prj = $div.data('project');
-      if (prj)
-        projectName = prj;
+        // Search DOM elements with class "JClic" (usually of type 'div') and iterate over them
+        // initializing players
+        $('.JClic').each((_n, element) => {
+            const $div = $(element);
+            const prj = $div.data('project');
+            if (prj)
+                projectName = prj;
 
-      const opt = $div.data('options');
-      if (opt)
-        options = $.extend(Object.create(options), opt);
+            const opt = $div.data('options');
+            if (opt)
+                options = $.extend(Object.create(options), opt);
 
-      JClicObject.loadProject(element, projectName, options);
-    });
-  }
+            JClicObject.loadProject(element, projectName, options);
+        });
+    }
 });
 
 export default JClicObject;

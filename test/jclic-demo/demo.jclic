@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JClicProject name="demo" version="0.1.3">
  <settings>
-  <title>JClic demo activities</title>
+  <title>JClic demo actividades</title>
   <revision description="Adapted for JSClic" date="4/4/15">
    <author name="Francesc Busquets" mail="fbusquets@xtec.cat" />
   </revision>
@@ -12,12 +12,12 @@
     <p>Catalonia Department of Education</p>
    </comments>
   </organization>
-  <language>English (en)</language>
+  <language>Spanish (es)</language>
   <description>
    <p>Compilation of samples of the different types of JClic activities.</p>
    <p>This package is just for testing and demo purposes.</p>
   </description>
-  <descriptors area="Not applicable" level="Not applicable">demo activities testing</descriptors>
+  <descriptors area="Not applicable" level="Not applicable">demo actividades de prueba</descriptors>
  </settings>
  <sequence>
   <!-- item id="demo.pac" name="pres0.ass" delay="50" -->
@@ -59,7 +59,7 @@
   </item>
   <item id="menuass.pac" name="menuass.ass">
    <description>
-    <p>association examples</p>
+    <p>asociacion ejemplo</p>
    </description>
    <jump action="RETURN" id="back" />
   </item>
@@ -234,7 +234,7 @@
      <media type="PLAY_AUDIO" level="1" file="muybien.mp3" />
     </cell>
     <cell>
-     <p>Record a sound</p>
+     <p>Graba un sonido</p>
     </cell>
     <cell>
      <p>Listen the recorded sound</p>
@@ -2179,7 +2179,7 @@
       <font family="Arial" size="21" />
       <color background="0xFFFF80" inactive="0x828282" alternative="0x828282" />
      </style>
-     <p>Click on the arrow to see the examples of associations</p>
+     <p>Click en la flecha to see the examples of associations</p>
     </cell>
     <cell type="final">
      <style>
@@ -2509,7 +2509,7 @@
     <shaper class="@Rectangular" cols="1" rows="1" />
     <cell>
      <media type="RUN_CLIC_PACKAGE" level="1" file="menu0.pac" />
-     <p>JClic 1.0 demo activities</p>
+     <p>JClic 1.0 demo actividades</p>
     </cell>
    </cells>
   </activity>

@@ -116,11 +116,11 @@
  */
 
 /**
-* The Storage interface of the Web Storage API provides access to the session storage or local storage for a particular domain,
-* allowing you to for example add, modify or delete stored data items.
-* @external Storage
-* @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Storage}
-*/
+ * The Storage interface of the Web Storage API provides access to the session storage or local storage for a particular domain,
+ * allowing you to for example add, modify or delete stored data items.
+ * @external Storage
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Storage}
+ */
 
 /**
  * The NamedNodeMap interface represents a collection of Attr objects. Objects inside a NamedNodeMap are not in any particular
@@ -142,11 +142,11 @@
  */
 
 /**
-* The HTMLStyleElement interface represents a [style](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style) element.
-* It inherits properties and methods from its parent, HTMLElement, and from LinkStyle.
-* @external HTMLStyleElement
-* @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLStyleElement}
-*/
+ * The HTMLStyleElement interface represents a [style](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style) element.
+ * It inherits properties and methods from its parent, HTMLElement, and from LinkStyle.
+ * @external HTMLStyleElement
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLStyleElement}
+ */
 
 /**
  * Type of MIDI instrument used by Soundfont Player
@@ -180,6 +180,8 @@ import Complete from './activities/text/Complete';
 import IdentifyText from './activities/text/IdentifyText';
 import WrittenAnswer from './activities/text/WrittenAnswer';
 import InformationScreen from './activities/panels/InformationScreen';
+import YoutubeScreen from './activities/panels/YoutubeScreen';
+import ArScreen from './activities/panels/ArScreen';
 import Identify from './activities/panels/Identify';
 import Explore from './activities/panels/Explore';
 import Menu from './activities/panels/Menu';
@@ -195,38 +197,40 @@ import TCPReporter from './report/TCPReporter';
 import SessionStorageReporter from './report/SessionStorageReporter';
 
 export default {
-  DefaultSkin,
-  OrangeSkin,
-  GreenSkin,
-  BlueSkin,
-  SimpleSkin,
-  MiniSkin,
-  EmptySkin,
-  CustomSkin,
-  Rectangular,
-  Holes,
-  JigSaw,
-  TriangularJigSaw,
-  ClassicJigSaw,
-  Arith,
-  TextActivityBase,
-  FillInBlanks,
-  OrderText,
-  Complete,
-  IdentifyText,
-  WrittenAnswer,
-  InformationScreen,
-  Identify,
-  Explore,
-  Menu,
-  DoublePuzzle,
-  ExchangePuzzle,
-  HolePuzzle,
-  MemoryGame,
-  SimpleAssociation,
-  ComplexAssociation,
-  WordSearch,
-  CrossWord,
-  TCPReporter,
-  SessionStorageReporter,
+    DefaultSkin,
+    OrangeSkin,
+    GreenSkin,
+    BlueSkin,
+    SimpleSkin,
+    MiniSkin,
+    EmptySkin,
+    CustomSkin,
+    Rectangular,
+    Holes,
+    JigSaw,
+    TriangularJigSaw,
+    ClassicJigSaw,
+    Arith,
+    TextActivityBase,
+    FillInBlanks,
+    OrderText,
+    Complete,
+    IdentifyText,
+    WrittenAnswer,
+    InformationScreen,
+    YoutubeScreen,
+    ArScreen,
+    Identify,
+    Explore,
+    Menu,
+    DoublePuzzle,
+    ExchangePuzzle,
+    HolePuzzle,
+    MemoryGame,
+    SimpleAssociation,
+    ComplexAssociation,
+    WordSearch,
+    CrossWord,
+    TCPReporter,
+    SessionStorageReporter,
 };
