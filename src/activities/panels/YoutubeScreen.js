@@ -98,7 +98,7 @@ export class YoutubeScreenPanel extends ActivityPanel {
         const abc = this.act.abc['primary'];
         if (abc) {
             let url = this.act.url.replace('watch?v=', 'embed/');
-            url = url + '?autoplay=1&rel=0&showinfo=0&controls=0&modestbranding=0&fs=0&loop=0';
+            url = url + '?rel=0&showinfo=0&modestbranding=0&fs=0&loop=0';
             let videocode = '<div class="responsiveRapper"><iframe width="560" height="315"  src="' +
                 url + '" title="YouTube video player" frameborder="0" ></iframe></div>';
             //videocode = '<div class="responsiveRapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/zAlX1V3lK5s" autoplay;></iframe></div>';
