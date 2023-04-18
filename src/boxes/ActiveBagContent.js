@@ -120,7 +120,7 @@ export class ActiveBagContent {
                     this.ids.split(' ').forEach((id, i) => { this.cells[i] = new ActiveBoxContent(Number(id)); });
                     break;
                 case 'cell':
-                    console.log('case cell: -> new ActiveBoxContent().setProperties($node, mediaBag)');
+                    //console.log('case cell: -> new ActiveBoxContent().setProperties($node, mediaBag)');
                     this.cells.push(new ActiveBoxContent().setProperties($node, mediaBag));
                     break;
             }

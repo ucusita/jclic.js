@@ -103,9 +103,9 @@ export class ActiveBoxContent {
     setProperties($xml, mediaBag) {
         //
         // Read attributes
-        console.log("********  ACTIVEBOXCONTENT.setProperties  *************");
+        //console.log("********  ACTIVEBOXCONTENT.setProperties  *************");
         attrForEach($xml.get(0).attributes, (name, val) => {
-            console.log("name: ", name);
+            //console.log("name: ", name);
             switch (name) {
                 case 'id':
                 case 'item':

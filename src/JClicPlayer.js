@@ -139,6 +139,7 @@ export class JClicPlayer extends Container {
                         // Detect double taps, done in less than 800 ms and at short distance
                         if (
                             document && document.fullscreenEnabled &&
+                            //Esta linea es la que hace que no funcione en el movil
                             startTouch && startTouchTime &&
                             currentTime - startTouchTime < 800 &&
                             dist < minSwipeX
@@ -678,6 +679,9 @@ export class JClicPlayer extends Container {
             this.history.pushBrowserHistory();
 
             this.actPanel.$div.fadeIn(this.options.fade, () => this.activityReady());
+            console.log('JClicPlayer - load');
+            console.log('==================');
+            //alert('stopped');
         }
         this.setWaitCursor(false);
     }

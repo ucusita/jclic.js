@@ -13,6 +13,7 @@
    </comments>
   </organization>
   <language>Spanish (es)</language>
+  <skin name="simple" file="@simple.xml" />
   <description>
    <p>Compilation of samples of the different types of JClic activities.</p>
    <p>This package is just for testing and demo purposes.</p>
@@ -3032,7 +3033,7 @@
     </cell>
    </messages>
    <settings margin="8" report="true" reportActions="false">
-    <skin name="blue" file="@blue.xml" />
+    <skin name="simple" file="@simple.xml" />
     <helpWindow showSolution="true" />
     <container bgColor="0xFFFFFF">
      <counters time="true" actions="true" score="true" />

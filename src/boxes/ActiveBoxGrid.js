@@ -109,7 +109,7 @@ export class ActiveBoxGrid extends ActiveBoxBag {
             abc.getTotalWidth(), abc.getTotalHeight(),
             sh || abc.getShaper()) : null;
 
-        console.log('result=', result);
+        //console.log('result=', result);
         if (result)
             result.setBorder(abc.border);
 

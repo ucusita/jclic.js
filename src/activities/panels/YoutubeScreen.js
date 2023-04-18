@@ -94,16 +94,32 @@ export class YoutubeScreenPanel extends ActivityPanel {
         this.clear();
         console.log('**************************************************');
         console.log('this.act.url=', this.act.url);
+        //console.log('****************** this.a.dim ********************');
+        //console.log('this.ps.dim=', this.ps.dim);
+        //console.log('this=', this);
         //this.act.url = "https://www.youtube.com/embed/zcSHJRiT2F0";        
         const abc = this.act.abc['primary'];
         if (abc) {
-            let url = this.act.url.replace('watch?v=', 'embed/');
-            url = url + '?rel=0&showinfo=0&modestbranding=0&fs=0&loop=0';
-            let videocode = '<div class="responsiveRapper"><iframe width="560" height="315"  src="' +
-                url + '" title="YouTube video player" frameborder="0" ></iframe></div>';
-            //videocode = '<div class="responsiveRapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/zAlX1V3lK5s" autoplay;></iframe></div>';
-            //Cuidado con el embed/ si no se lo coloca, no anda.
-            this.$video = $(videocode).appendTo(this.$div);
+            setTimeout(() => {
+                const canvas = document.querySelector('div.JClicActivity canvas');
+                const canvasWidth = canvas.clientWidth;
+                const canvasHeight = canvas.clientHeight;
+                //alert('canvasWidth=' + canvasWidth + ' canvasHeight=' + canvasHeight);
+                console.log('height=', canvasHeight);
+                console.log('width=', canvasWidth);
+                let url = this.act.url.replace('watch?v=', 'embed/');
+                url = url + '?rel=0&showinfo=0&modestbranding=0&fs=0&loop=0';
+                //Funciona pero el tamaño es incorrecto en ciertas ocasiones
+                /* let videocode = '<div class="responsiveRapper"><iframe width="560" height="315"  src="' +
+                    url + '" title="YouTube video player" frameborder="0" ></iframe></div>'; */
+                let videocode = '<div class="responsiveRapper"><iframe width="' + canvasWidth + '" height="' + canvasHeight + '"  src="' +
+                    url + '" title="YouTube video player" frameborder="0" ></iframe></div>';
+                //videocode = '<div class="responsiveRapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/zAlX1V3lK5s" autoplay;></iframe></div>';
+                //Cuidado con el embed/ si no se lo coloca, no anda.
+                this.$video = $(videocode).appendTo(this.$div);
+                console.log("THIS.VIDEOCODE");
+                console.log(this.$video);
+            }, 1000);
         }
 
         this.bg = ActiveBoxGrid.createEmptyGrid(null, this,
@@ -178,8 +194,12 @@ export class YoutubeScreenPanel extends ActivityPanel {
             this.$canvas = $('<canvas width="' + rect.dim.width + '" height="' + rect.dim.height + '"/>').css({
                 position: 'absolute',
                 top: 0,
-                left: 0
+                left: 0,
+                zIndex: -100 //Agregado para ocultar el contenedor canvas
             });
+            //alert('canvas width=' + rect.dim.width + ' canvas height=' + rect.dim.height);
+            console.log("THIS.CANVAS");
+            console.log(this.$canvas);
             // Resize animated gif background
             if (this.$animatedBg) {
                 const bgRect = this.bg.getBounds();

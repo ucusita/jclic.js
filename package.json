@@ -1,87 +1,83 @@
 {
-  "name": "jclic",
-  "title": "JClic.js",
-  "description": "HTML5 player for JClic activities",
-  "version": "2.1.12",
-  "main": "dist/jclic-node.js",
-  "jsdelivr": "dist/jclic.min.js",
-  "homepage": "https://projectestac.github.io/jclic.js",
-  "readmeFilename": "README.md",
-  "author": {
-    "name": "Catalan Educational Telematic Network (XTEC)",
-    "email": "clic@xtec.cat",
-    "url": "https://clic.xtec.cat"
-  },
-  "contributors": [
-    {
-      "name": "Francesc Busquets",
-      "email": "francesc@gmail.com",
-      "url": "https://github.com/frncesc"
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/projectestac/jclic.js.git"
-  },
-  "keywords": [
-    "jclic",
-    "JClic",
-    "java",
-    "html5",
-    "education",
-    "game",
-    "games",
-    "puzzle",
-    "puzzles",
-    "activities"
-  ],
-  "bugs": {
-    "url": "https://github.com/projectestac/jclic.js/issues"
-  },
-  "licenses": [
-    {
-      "type": "EUPL-1.2",
-      "url": "https://spdx.org/licenses/EUPL-1.2.html"
-    }
-  ],
-  "license": "EUPL-1.2",
-  "dependencies": {
-    "@anggamanggala21/text-to-speech": "^0.1.2",
-    "@francesc/basic-midi-player-js": "^3.0.2",
-    "jquery": "^3.6.0",
-    "jszip": "^3.10.1",
-    "jszip-utils": "0.1.0",
-    "webfontloader": "^1.6.28"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.18.10",
-    "@babel/eslint-parser": "^7.18.9",
-    "@babel/preset-env": "^7.18.10",
-    "@xmldom/xmldom": "^0.8.2",
-    "babel-loader": "^8.2.5",
-    "clipboard-polyfill": "^3.0.3",
-    "eslint": "^8.21.0",
-    "eslint-webpack-plugin": "^3.2.0",
-    "fs-extra": "^10.1.0",
-    "ink-docstrap-template": "^1.3.2",
-    "jsdoc": "^3.6.11",
-    "jsdom": "^20.0.0",
-    "patch-package": "^6.4.7",
-    "po2json": "^1.0.0-alpha",
-    "terser-webpack-plugin": "^5.3.3",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.10.0",
-    "webpack-node-externals": "^3.0.0"
-  },
-  "scripts": {
-    "prebuild": "patch-package",
-    "build": "webpack --mode production",
-    "build-locales": "node build-locales.js",
-    "build-doc": "jsdoc -c jsdoc.config.js",
-    "lint": "eslint -c .eslintrc.json \"src/**/*.js\"",
-    "prestart": "patch-package",
-    "start": "webpack serve --mode development"
-  },
-  "browserslist": "> 0.25%, not dead"
+    "name": "jclic",
+    "title": "JClic.js",
+    "description": "HTML5 player cinco mas uno",
+    "version": "2.1.12",
+    "main": "dist/jclic-node.js",
+    "jsdelivr": "dist/jclic.min.js",
+    "homepage": "https://projectestac.github.io/jclic.js",
+    "readmeFilename": "README.md",
+    "author": {
+        "name": "Educational",
+        "email": "info@infotronico.com",
+        "url": "https://infotronico.com"
+    },
+    "contributors": [{
+        "name": "Francisco",
+        "email": "assppol01@hotmail.com",
+        "url": "https://github.com/"
+    }],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/projectestac/jclic.js.git"
+    },
+    "keywords": [
+        "jclic",
+        "JClic",
+        "java",
+        "html5",
+        "education",
+        "game",
+        "games",
+        "puzzle",
+        "puzzles",
+        "activities"
+    ],
+    "bugs": {
+        "url": "https://github.com/projectestac/jclic.js/issues"
+    },
+    "licenses": [{
+        "type": "EUPL-1.2",
+        "url": "https://spdx.org/licenses/EUPL-1.2.html"
+    }],
+    "license": "EUPL-1.2",
+    "dependencies": {
+        "@anggamanggala21/text-to-speech": "^0.1.2",
+        "@francesc/basic-midi-player-js": "^3.0.2",
+        "jquery": "^3.6.0",
+        "jszip": "^3.10.1",
+        "jszip-utils": "0.1.0",
+        "webfontloader": "^1.6.28"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.18.10",
+        "@babel/eslint-parser": "^7.18.9",
+        "@babel/preset-env": "^7.18.10",
+        "@xmldom/xmldom": "^0.8.2",
+        "babel-loader": "^8.2.5",
+        "clipboard-polyfill": "^3.0.3",
+        "eslint": "^8.21.0",
+        "eslint-webpack-plugin": "^3.2.0",
+        "fs-extra": "^10.1.0",
+        "ink-docstrap-template": "^1.3.2",
+        "jsdoc": "^3.6.11",
+        "jsdom": "^20.0.0",
+        "patch-package": "^6.4.7",
+        "po2json": "^1.0.0-alpha",
+        "terser-webpack-plugin": "^5.3.3",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0",
+        "webpack-dev-server": "^4.10.0",
+        "webpack-node-externals": "^3.0.0"
+    },
+    "scripts": {
+        "prebuild": "patch-package",
+        "build": "webpack --mode production",
+        "build-locales": "node build-locales.js",
+        "build-doc": "jsdoc -c jsdoc.config.js",
+        "lint": "eslint -c .eslintrc.json \"src/**/*.js\"",
+        "prestart": "patch-package",
+        "start": "webpack serve --mode development"
+    },
+    "browserslist": "> 0.25%, not dead"
 }

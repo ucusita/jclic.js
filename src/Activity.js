@@ -91,20 +91,21 @@ export class Activity {
         if (data && project) {
             const className = isXml ? (data.attr('class') || '').replace(/^edu\.xtec\.jclic\.activities\./, '@') : data.className;
             const cl = Activity.CLASSES[className]; //Agrega los campos necesarios de la clase (tipo de actividad)
-            console.info('cl contiene:', cl);
-            console.info('data contiene:', data);
+            //console.info('cl contiene:', cl);
+            //console.info('data contiene:', data);
             if (cl) {
                 act = new cl(project);
                 console.info('act en getActivity contiene:', act);
                 if (isXml) {
                     act.setProperties(data);
-                    console.info('act luego de setProperties en getActivity contiene:', act);
+                    //console.info('(True isXml)act luego de setProperties contiene:', act);
                 } else
                     act.setAttributes(data);
+                //console.info('(False isXml)act luego de setProperties contiene:', act);
             } else
                 log('error', `Unknown activity class: ${className}`);
         }
-        console.log('Sale de getActivity');
+        //console.log('Sale de getActivity');
         return act;
     }
 
@@ -113,10 +114,10 @@ export class Activity {
      * @param {external:jQuery} $xml - The jQuery XML element to parse
      */
     setProperties($xml) {
-        console.info('$xml contiene:', $xml);
+        //console.info('$xml contiene:', $xml);
         // Read attributes
         attrForEach($xml.get(0).attributes, (name, val) => {
-            console.log('name en forEach contiene:', name);
+            //console.log('name en forEach contiene:', name);
             switch (name) {
                 // Generic attributes:
                 case 'name':
@@ -131,7 +132,7 @@ export class Activity {
 
                 case 'class':
                     this.className = val.replace(/^edu\.xtec\.jclic\.activities\./, '@');
-                    console.log('className en forEach contiene:', this.className);
+                    //console.log('className en forEach contiene:', this.className);
                     break;
 
                 case 'inverse':
@@ -146,18 +147,18 @@ export class Activity {
             }
         });
 
-        console.log('********************************************************');
-        console.log('Read specific nodes');
+        //console.log('********************************************************');
+        //console.log('Read specific nodes');
         // Read specific nodes
         $xml.children().each((_n, child) => {
             const $node = $(child);
-            console.log('child.nodename en $xml.children().each contiene:', child.nodeName);
+            //console.log('child.nodename en $xml.children().each contiene:', child.nodeName);
             switch (child.nodeName) {
                 case 'settings':
                     // Read more attributes
-                    console.log('***************** SETTINGS **************************');
+                    //console.log('***************** SETTINGS **************************');
                     attrForEach($node.get(0).attributes, (name, val) => {
-                        console.log('name en attrForEach($node.get(0).attributes (Read more attributes) contiene:', name);
+                        //console.log('name en attrForEach($node.get(0).attributes (Read more attributes) contiene:', name);
                         switch (name) {
                             case 'infoUrl':
                             case 'infoCmd':
@@ -255,10 +256,10 @@ export class Activity {
                     break;
 
                 case 'messages':
-                    console.log('***************** MARGINS **************************');
+                    //console.log('***************** MARGINS **************************');
                     $node.children('cell').each((_n, child) => {
                         const m = this.readMessage($(child));
-                        console.log('m contiene (en case messages):', m);
+                        //console.log('m contiene (en case messages):', m);
                         // Possible message types are: `initial`, `final`, `previous`, `finalError`
                         this.messages[m.type] = m;
                     });
@@ -273,10 +274,10 @@ export class Activity {
 
                     // Settings specific to panel-type activities (puzzles, associations...)
                 case 'cells':
-                    console.log('***************** CELLS **************************');
+                    //console.log('***************** CELLS **************************');
                     // Read the [ActiveBagContent](ActiveBagContent.html) objects
                     const cellSet = new ActiveBagContent().setProperties($node, this.project.mediaBag);
-                    console.log('cellSet contiene (en case cells):', cellSet);
+                    //console.log('cellSet contiene (en case cells):', cellSet);
                     // Valid ids:
                     // - Panel activities: 'primary', 'secondary', solvedPrimary'
                     // - Textpanel activities: 'acrossClues', 'downClues', 'answers'
@@ -605,7 +606,7 @@ export class Activity {
      * @returns {module:Activity.ActivityPanel}
      */
     getActivityPanel(ps) {
-        console.log(ps);
+        //console.log(ps);
         return new this.constructor.Panel(this, ps);
     }
 }
@@ -933,6 +934,8 @@ export class ActivityPanel extends Container {
      * Prepares the visual components of the activity
      */
     buildVisualComponents() {
+        //console.log('ActivityPanel - buildVisualComponents');
+        //alert('stopped');
         this.playing = false;
         this.skin = null;
         if (this.act.skinFileName && this.act.skinFileName.length > 0 && this.act.skinFileName !== this.act.project.settings.skinFileName)
@@ -970,6 +973,10 @@ export class ActivityPanel extends Container {
             cssAct['background-image'] = this.act.activityBgGradient.getCss();
 
         this.$div.css(cssAct);
+
+        //console.log('ActivityPanel - buildVisualComponents - Fin');
+        //console.log('===========================================');
+        //alert('stopped');
     }
 
     /**
@@ -1159,7 +1166,7 @@ export class ActivityPanel extends Container {
      * @param {string} [eventSoundsCode] - Optional name of the event sound to be played.
      */
     setAndPlayMsg(msgCode, eventSoundsCode) {
-        console.log("msgCode=", msgCode, "  eventSoundsCode=", eventSoundsCode, " act=", this.act.messages[msgCode].text);
+        //console.log("msgCode=", msgCode, "  eventSoundsCode=", eventSoundsCode, " act=", this.act.messages[msgCode].text);
         if (msgCode == 'initial' || msgCode == 'final') { this.playTTS(this.act.messages[msgCode].text, 1); }
         const msg = this.act.messages[msgCode] || null;
         this.ps.setMsg(msg);

@@ -179,9 +179,6 @@ import OrderText from './activities/text/OrderText';
 import Complete from './activities/text/Complete';
 import IdentifyText from './activities/text/IdentifyText';
 import WrittenAnswer from './activities/text/WrittenAnswer';
-import InformationScreen from './activities/panels/InformationScreen';
-import YoutubeScreen from './activities/panels/YoutubeScreen';
-import ArScreen from './activities/panels/ArScreen';
 import Identify from './activities/panels/Identify';
 import Explore from './activities/panels/Explore';
 import Menu from './activities/panels/Menu';
@@ -195,6 +192,12 @@ import WordSearch from './activities/textGrid/WordSearch';
 import CrossWord from './activities/textGrid/CrossWord';
 import TCPReporter from './report/TCPReporter';
 import SessionStorageReporter from './report/SessionStorageReporter';
+
+//Nuevos módulos
+import InformationScreen from './activities/panels/InformationScreen';
+import YoutubeScreen from './activities/panels/YoutubeScreen';
+import ArScreen from './activities/panels/ArScreen';
+//import Blix from "./media/Blix";
 
 export default {
     DefaultSkin,
@@ -217,9 +220,6 @@ export default {
     Complete,
     IdentifyText,
     WrittenAnswer,
-    InformationScreen,
-    YoutubeScreen,
-    ArScreen,
     Identify,
     Explore,
     Menu,
@@ -233,4 +233,9 @@ export default {
     CrossWord,
     TCPReporter,
     SessionStorageReporter,
+
+    InformationScreen,
+    YoutubeScreen,
+    ArScreen,
+    //    Blix,
 };
