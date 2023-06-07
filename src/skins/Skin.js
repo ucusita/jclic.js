@@ -38,10 +38,12 @@ import { Container, Dimension, Rectangle } from '../AWT';
 
 // Use Webpack to import CSS and SVG files
 import basicCSS from './assets/basic.css';
-import waitAnimCSS from './assets/waitAnim.css';
+import waitAnimCSS from './assets/waitAnim51.css';
 import reportsCSS from './assets/reports.css';
 import waitImgSmall from './assets/waitImgSmall.svg';
-import waitImgBig from './assets/waitImgBig.svg';
+//import waitImgBig from './assets/waitImgBig.svg';
+//import waitImgBig from './assets/waitPaperPlane.svg';
+import waitImgBig from './assets/waitLogo51.svg';
 import appLogo from './assets/appLogo.svg';
 import closeDialogIcon from './assets/closeDialogIcon.svg';
 import okDialogIcon from './assets/okDialogIcon.svg';
@@ -100,7 +102,8 @@ export class Skin extends Container {
             .css({ display: 'none', 'background-color': 'rgba(255, 255, 255, .60)', 'z-index': 99 })
             .append($('<div/>', { class: 'waitPanel' }).css({ display: 'flex', 'flex-direction': 'column' })
                 .append($('<div/>', { class: 'animImgBox' })
-                    .append($(this.waitImgBig), $(this.waitImgSmall)))
+                    //.append($(this.waitImgBig), $(this.waitImgSmall)))
+                	.append($(this.waitImgBig)))
                 .append(this.$progress));
         this.$playerCnt.append(this.$waitPanel);
 

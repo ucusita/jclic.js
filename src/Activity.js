@@ -1186,6 +1186,12 @@ export class ActivityPanel extends Container {
         // } else {
         //     play(msg, 'es-ES', 1);
         // }        
+        console.log("msg para Speech= ", msg);
+        if (!msg) {
+            console.log('null value, saliendo de playTTS');
+            return;
+        }
+        if (msg === "" || msg === null || !msg) return;
 
         var Speech = new SpeechSynthesisUtterance();
         Speech.text = msg;
