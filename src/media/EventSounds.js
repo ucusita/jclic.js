@@ -134,8 +134,8 @@ export class EventSounds {
      */
     play(eventName) {
         let sound;
-        console.log('=====>  Play event Sound: "', eventName, '"');
-        console.log('=====>  globalEnabled: "', this.globalEnabled, this.enabled);
+        //console.log('=====>  Play event Sound: "', eventName, '"');
+        //console.log('=====>  globalEnabled: "', this.globalEnabled, this.enabled);
         if (this.globalEnabled && this.enabled) {
             if (eventName === 'start') {
                 let randomNumber = Math.floor(Math.random() * 8);

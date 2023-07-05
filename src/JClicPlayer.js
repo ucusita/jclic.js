@@ -106,7 +106,7 @@ export class JClicPlayer extends Container {
         this.initTimers();
         this.listenTouchEvents();
         log('info', 'JClicPlayer ready');
-        console.log('========== this: =============', this);
+        //console.log('========== this: =============', this);
     }
 
     /**
@@ -200,7 +200,7 @@ export class JClicPlayer extends Container {
      * Builds the {@link module:AWT.Action} objects for this player
      */
     buildActions() {
-        console.log('\\\\\\\\\\\\\\ buildActions() /////////////// ');
+        //console.log('\\\\\\\\\\\\\\ buildActions() /////////////// ');
         this.actions = {
             'next': new Action('next', () => this.history.processJump(this.project.activitySequence.getJump(false, this.reporter), false)),
             'prev': new Action('prev', () => this.history.processJump(this.project.activitySequence.getJump(true, this.reporter), false)),
@@ -394,7 +394,7 @@ export class JClicPlayer extends Container {
                     log('info', `Loading JSON info from: ${fullPath}`);
                     $.getJSON(fullPath).done(({ mainFile }) => {
                         // Read the `mainFile` field of `project.json`
-                        if (mainFile && endsWith(mainFile, '.jclic') || endsWith(mainFile, '.jclic.json')) {
+                        if (mainFile && endsWith(mainFile, '.jclic')  || endsWith(mainFile, '.cmu') || endsWith(mainFile, '.jclic.json')) {
                             // Load project's main file
                             this.load(getPath(getBasePath(fullPath), mainFile), sequence, activity);
                         } else {
@@ -483,7 +483,7 @@ export class JClicPlayer extends Container {
 
                 // Step one: load the project file
                 const processProjectFile = fp => {
-                    const isXml = fp.indexOf('data:text/xml;') === 0 || fp.endsWith('.jclic');
+                    const isXml = fp.indexOf('data:text/xml;') === 0 || fp.endsWith('.jclic') || fp.endsWith('.cmu');
 
                     const loader = isXml ? $.get(fp, null, null, 'xml') : $.getJSON(fp);
 
@@ -604,7 +604,10 @@ export class JClicPlayer extends Container {
 
         // Step three: load the activity
         if (activity) {
-            console.info('Step three:', activity);
+            console.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+            console.info('XXX  load - Step three:');
+            console.info('XXX  ACTIVIDAD: ', activity);
+            console.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
             console.log('========== this: =============', this);
             const act = this.project.getActivity(activity); //Obtiene los detalles de la actividad
             if (act) {
@@ -680,7 +683,7 @@ export class JClicPlayer extends Container {
 
             this.actPanel.$div.fadeIn(this.options.fade, () => this.activityReady());
             console.log('JClicPlayer - load');
-            console.log('==================');
+            //console.log('==================');
             //alert('stopped');
         }
         this.setWaitCursor(false);

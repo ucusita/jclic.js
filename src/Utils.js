@@ -1269,7 +1269,7 @@ export const settings = {
   // Flag to indicate that we are running on a touch device
   TOUCH_DEVICE: false,
   // Amount of time (in milliseconds) to wait before a media resource is loaded
-  LOAD_TIMEOUT: 10000,
+  LOAD_TIMEOUT: 120000,
   // Number of points to be calculated as polygon vertexs when simplifying bezier curves
   BEZIER_POINTS: 4,
   // Check if canvas accessibility features are enabled

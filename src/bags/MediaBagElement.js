@@ -288,7 +288,7 @@ export class MediaBagElement {
                         break;
 
                     case 'video':
-                        console.log("////////////////  AQUI ESTA VIDEO  ///////////////////////");
+                        //console.log("////////////////  AQUI ESTA VIDEO  ///////////////////////");
                         this.data = document.createElement(this.type);
                         this.data.addEventListener('canplay', () => { this._onReady.call(this); }, { once: true });
                         this.data.src = fullPath;

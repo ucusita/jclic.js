@@ -44,7 +44,7 @@ import { Rectangle, Point } from '../../AWT';
  * options.
  * @extends module:Activity.Activity
  */
-export class YoutubeScreen extends Activity {
+export class YoutubeScreenVideo extends Activity {
     /**
      * basado en InformationScreen constructor
      * @param {module:project/JClicProject.JClicProject} project - The {@link module:project/JClicProject.JClicProject JClicProject} to which this activity belongs
@@ -61,7 +61,7 @@ export class YoutubeScreen extends Activity {
  * The {@link module:Activity.ActivityPanel ActivityPanel} where {@link module:activities/panels/InformationScreen.InformationScreen InformationScreen} activities should display its content
  * @extends module:Activity.ActivityPanel
  */
-export class YoutubeScreenPanel extends ActivityPanel {
+export class YoutubeScreenPanelVideo extends ActivityPanel {
     /**
      * YoutubeScreenPanel (ex InformationScreenPanel) constructor
      * @param {module:Activity.Activity} act - The {@link module:Activity.Activity Activity} to which this Panel belongs
@@ -256,7 +256,7 @@ export class YoutubeScreenPanel extends ActivityPanel {
     }
 }
 
-Object.assign(YoutubeScreenPanel.prototype, {
+Object.assign(YoutubeScreenPanelVideo.prototype, {
     /**
      * The {@link module:boxes/ActiveBoxbag.ActiveBoxBag ActiveBoxBag} containing the information to be displayed.
      * @name module:activities/panels/InformationScreen.InformationScreenPanel#bg
@@ -273,7 +273,7 @@ Object.assign(YoutubeScreenPanel.prototype, {
 /**
  * Panel class associated to this type of activity: {@link module:activities/panels/InformationScreen.InformationScreenPanel InformationScreenPanel}
  * @type {class} */
-YoutubeScreen.Panel = YoutubeScreenPanel;
+YoutubeScreenVideo.Panel = YoutubeScreenPanelVideo;
 
 // Register activity class
-export default Activity.registerClass('@panels.YoutubeScreen', YoutubeScreen);
+export default Activity.registerClass('@panels.YoutubeScreenVideo', YoutubeScreenVideo);

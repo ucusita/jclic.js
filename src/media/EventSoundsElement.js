@@ -52,7 +52,7 @@ export class EventSoundsElement {
             if (startsWith(file, 'data:'))
                 this.audio = new Audio(file);
             else {
-                console.log('EventSoundsElement: ', file);
+                //console.log('EventSoundsElement: ', file);
                 this.audio = new Audio(file);
             }
             //this.file = file;
