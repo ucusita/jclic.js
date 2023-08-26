@@ -608,7 +608,16 @@ export class JClicPlayer extends Container {
             console.info('XXX  load - Step three:');
             console.info('XXX  ACTIVIDAD: ', activity);
             console.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-            console.log('========== this: =============', this);
+            //console.log('========== this: =============', this);
+            //Elimina los botones de la actividad PintorScreen si existieran
+            //if ($('#botonesPintor').length > 0) {
+            try {
+                $('#botonesPintor').remove();   
+            } catch (error) {
+                console.log('No existe todavía botones de PintorScreen');
+            }                
+            //}
+       
             const act = this.project.getActivity(activity); //Obtiene los detalles de la actividad
             if (act) {
                 //console.info('act (605): ', act);
@@ -833,6 +842,8 @@ export class JClicPlayer extends Container {
             case 'PLAY_AUDIO':
             case 'PLAY_VIDEO':
             case 'PLAY_VIDEO_YOUTUBE':
+            case 'PLAY_VIDEO_VIMEO':
+            case 'PLAY_PINTOR':
             case 'PLAY_MIDI':
             case 'RECORD_AUDIO':
             case 'PLAY_RECORDED_AUDIO':

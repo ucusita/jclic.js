@@ -231,9 +231,26 @@ export class InformationScreenPanel extends ActivityPanel {
     processEvent(event) {
         console.log('llamada a play', event);
         if (this.playing) {
-            const p = new Point(
-                event.pageX - this.$div.offset().left,
-                event.pageY - this.$div.offset().top);
+            //***** REALIZA EXPLOSIÓN EN LUGAR DONDE SE HA PULSADO O HECHO CLIC */
+            let datosXYok=true;     //Para analizar si está detectando datos de la posición del ratón
+            let x=event.pageX - this.$div.offset().left;
+            let y=event.pageY - this.$div.offset().top;
+            if (isNaN(x)) {
+                let touch = event.targetTouches[0];
+                try {
+                    x = touch.pageX - this.$div.offset().left;
+                    y = touch.pageY - this.$div.offset().top;    
+                } catch (error) {
+                    console.log('No ha podido leer datos del touch');
+                }
+                
+                if (isNaN(x)) datosXYok=false;
+            }
+
+
+            const p = new Point(x,y);
+                //event.pageX - this.$div.offset().left,
+                //event.pageY - this.$div.offset().top);
             // Array to be filled with actions to be executed at the end of event processing
             const delayedActions = [];
             this.ps.stopMedia(1);
@@ -241,7 +258,8 @@ export class InformationScreenPanel extends ActivityPanel {
             if (bx) {
                 if (!bx.playMedia(this.ps, delayedActions))
                     this.playEvent('click');
-                this.nuevaExplosion(event);
+                if(datosXYok) 
+                    this.nuevaExplosion(event);
             }
             delayedActions.forEach(action => action());
             event.preventDefault();

@@ -196,7 +196,9 @@ import SessionStorageReporter from './report/SessionStorageReporter';
 //Nuevos módulos
 import InformationScreen from './activities/panels/InformationScreen';
 import YoutubeScreen from './activities/panels/YoutubeScreen';
-import YoutubeScreen from './activities/panels/YoutubeScreenVideo';
+import YoutubeScreenVideo from './activities/panels/YoutubeScreenVideo'; //NUEVO
+import VimeoScreenVideo from './activities/panels/VimeoScreenVideo'; //NUEVO
+import PintorScreen from './activities/panels/PintorScreen';
 import ArScreen from './activities/panels/ArScreen';
 //import Blix from "./media/Blix";
 
@@ -238,6 +240,8 @@ export default {
     InformationScreen,
     YoutubeScreen,
     YoutubeScreenVideo,
+    VimeoScreenVideo,
+    PintorScreen,
     ArScreen,
     //    Blix,
 };

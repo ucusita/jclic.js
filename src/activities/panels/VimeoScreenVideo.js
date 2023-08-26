@@ -1,8 +1,30 @@
 /**
  *  File    : activities/panels/YoutubeScreen.js
  *  Created : 19/05/2015
- *  By      : MARCELO ROLDAN
- *  usado para implementar la actividad de videos de youtube directamente creandola desde Autor CincoMasUni
+ *  By      : Marcelo Roldan
+ *
+ *  JClic.js
+ *  An HTML5 player of JClic activities
+ *  https://projectestac.github.io/jclic.js
+ *
+ *  @license EUPL-1.2
+ *  @licstart
+ *  (c) 2000-2020 Educational Telematic Network of Catalonia (XTEC)
+ *
+ *  Licensed under the EUPL, Version 1.1 or -as soon they will be approved by
+ *  the European Commission- subsequent versions of the EUPL (the "Licence");
+ *  You may not use this work except in compliance with the Licence.
+ *
+ *  You may obtain a copy of the Licence at:
+ *  https://joinup.ec.europa.eu/software/page/eupl
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the Licence is distributed on an "AS IS" basis, WITHOUT
+ *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ *  Licence for the specific language governing permissions and limitations
+ *  under the Licence.
+ *  @licend
+ *  @module
  */
 
 /* global window */
@@ -21,7 +43,7 @@ import { Rectangle, Point } from '../../AWT';
  * options.
  * @extends module:Activity.Activity
  */
-export class YoutubeScreenVideo extends Activity {
+export class VimeoScreenVideo extends Activity {
     /**
      * basado en InformationScreen constructor
      * @param {module:project/JClicProject.JClicProject} project - The {@link module:project/JClicProject.JClicProject JClicProject} to which this activity belongs
@@ -38,9 +60,9 @@ export class YoutubeScreenVideo extends Activity {
  * The {@link module:Activity.ActivityPanel ActivityPanel} where {@link module:activities/panels/InformationScreen.InformationScreen InformationScreen} activities should display its content
  * @extends module:Activity.ActivityPanel
  */
-export class YoutubeScreenVideoPanel extends ActivityPanel {
+export class VimeoScreenVideoPanel extends ActivityPanel {
     /**
-     * YoutubeScreenPanel (ex InformationScreenPanel) constructor
+     * VimeoScreenPanel (ex InformationScreenPanel) constructor
      * @param {module:Activity.Activity} act - The {@link module:Activity.Activity Activity} to which this Panel belongs
      * @param {module:JClicPlayer.JClicPlayer} ps - Any object implementing the methods defined in the
      * [PlayStation](http://projectestac.github.io/jclic/apidoc/edu/xtec/jclic/PlayStation.html) Java interface.
@@ -79,13 +101,13 @@ export class YoutubeScreenVideoPanel extends ActivityPanel {
         const h=this.act.abc.primary.h;
         if (abc) {
             if (isURL) {
-                const youtubeURL=this.act.abc.primary.cells[0].mediaContent.file;
-                console.log("--- LO VE COMO URL ---", youtubeURL, w, h);
-
-                let newUrl = youtubeURL.replace('watch?v=', 'embed/');
-                newUrl = newUrl + '?rel=0&showinfo=0&modestbranding=0&fs=0&loop=0';
-                let HTMLvideocode = '<div class="responsiveRapper"><iframe width="' + w + '" height="' + h + '"  src="' +
-                newUrl + '" title="YouTube video player" frameborder="0" ></iframe></div>';
+                const vimeoURL=this.act.abc.primary.cells[0].mediaContent.file;
+                console.log("--- LO VE COMO URL ---", vimeoURL, w, h);
+                //Formato de url link: https://vimeo.com/826058701
+                //Formato de url embed: https://player.vimeo.com/video/826058701
+                let newUrl = vimeoURL.replace('player.vimeo.com', 'player.vimeo.com/video');                
+                let HTMLvideocode = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="'+ newUrl +'?h=d36095f458&autoplay=1&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>';
+                console.log(HTMLvideocode);
                 this.$animatedBg== $(HTMLvideocode).appendTo(this.$div);
             }
 
@@ -97,10 +119,7 @@ export class YoutubeScreenVideoPanel extends ActivityPanel {
             this.bg = ActiveBoxGrid.createEmptyGrid(null, this,
                 this.act.margin, this.act.margin,
                 abc);
-            // this.bg.setContent(abc);
-            // if (this.$animatedBg)
-            //     this.bg.setCellAttr('tmpTrans', true);
-            // this.bg.setVisible(true);
+
         }
         
     }
@@ -230,7 +249,7 @@ export class YoutubeScreenVideoPanel extends ActivityPanel {
     }
 }
 
-Object.assign(YoutubeScreenVideoPanel.prototype, {
+Object.assign(VimeoScreenVideoPanel.prototype, {
     /**
      * The {@link module:boxes/ActiveBoxbag.ActiveBoxBag ActiveBoxBag} containing the information to be displayed.
      * @name module:activities/panels/InformationScreen.InformationScreenPanel#bg
@@ -247,7 +266,7 @@ Object.assign(YoutubeScreenVideoPanel.prototype, {
 /**
  * Panel class associated to this type of activity: {@link module:activities/panels/InformationScreen.InformationScreenPanel InformationScreenPanel}
  * @type {class} */
-YoutubeScreenVideo.Panel = YoutubeScreenVideoPanel;
+VimeoScreenVideo.Panel = VimeoScreenVideoPanel;
 
 // Register activity class
-export default Activity.registerClass('@panels.YoutubeScreenVideo', YoutubeScreenVideo);
+export default Activity.registerClass('@panels.VimeoScreenVideo', VimeoScreenVideo);

@@ -154,7 +154,7 @@ export class EventSounds {
                 let randomNumber = Math.floor(Math.random() * 5);
                 let evtName = eventName + `${randomNumber}`;
                 sound = this.elements[evtName];
-                console.log('Encontro actionOK', sound);
+                //console.log('Encontro actionOK', sound);
             } else if (eventName === 'click') {
                 let randomNumber = Math.floor(Math.random() * 11);
                 let evtName = eventName + `${randomNumber}`;
@@ -165,7 +165,7 @@ export class EventSounds {
             if (sound && sound.enabled)
                 sound.play();
             //alert('EventSounds.Play');
-            console.log('sound contiene:', sound);
+            //console.log('sound contiene:', sound);
         }
     }
 }
